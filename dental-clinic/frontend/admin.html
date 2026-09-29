@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard | Apex Dental Clinic</title>
+  <meta name="description" content="Manage appointments, patients, and scheduling for Apex Dental Clinic.">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body style="background-color: var(--bg-body);">
+
+  <!-- Admin Top Navigation Bar -->
+  <header class="admin-navbar">
+    <div class="brand-logo">
+      <div class="brand-icon">🦷</div>
+      <div class="brand-text">Apex <span>Dental</span> <small style="font-size: 0.8rem; font-weight: 600; color: var(--text-muted); margin-left: 6px;">[ADMIN PORTAL]</small></div>
+    </div>
+
+    <div class="admin-nav-user">
+      <a href="index.html" target="_blank" class="btn btn-outline btn-sm" title="Open patient booking website in new tab">
+        🌐 View Website
+      </a>
+
+      <div class="admin-badge" id="admin-badge">
+        <div class="admin-avatar" id="admin-avatar">A</div>
+        <span id="admin-display-name">Admin</span>
+      </div>
+
+      <button id="logout-btn" class="btn btn-outline btn-sm" title="Log out of admin session">
+        Logout ⎋
+      </button>
+    </div>
+  </header>
+
+  <!-- Main Dashboard Content -->
+  <main class="dashboard-container">
+    
+    <div class="dashboard-header">
+      <div class="dashboard-title">
+        <h1>Dental Clinic Admin Dashboard</h1>
+        <p>Real-time overview of clinic appointments, patient requests, and schedule status.</p>
+      </div>
+
+      <button id="refresh-btn" class="btn btn-secondary btn-sm">
+        🔄 Refresh Data
+      </button>
+    </div>
+
+    <!-- Summary KPI Cards -->
+    <section class="metrics-grid" aria-label="Appointment summary metrics">
+      <div class="metric-card">
+        <div class="metric-info">
+          <p>Total Appointments</p>
+          <h2 id="metric-total">0</h2>
+        </div>
+        <div class="metric-icon metric-total">📅</div>
+      </div>
+
+      <div class="metric-card">
+        <div class="metric-info">
+          <p>Pending Requests</p>
+          <h2 id="metric-pending">0</h2>
+        </div>
+        <div class="metric-icon metric-pending">⏳</div>
+      </div>
+
+      <div class="metric-card">
+        <div class="metric-info">
+          <p>Confirmed</p>
+          <h2 id="metric-confirmed">0</h2>
+        </div>
+        <div class="metric-icon metric-confirmed">✅</div>
+      </div>
+
+      <div class="metric-card">
+        <div class="metric-info">
+          <p>Today's Appointments</p>
+          <h2 id="metric-today">0</h2>
+        </div>
+        <div class="metric-icon metric-today">☀️</div>
+      </div>
+    </section>
+
+    <!-- Toolbar: Search & Filters -->
+    <section class="table-toolbar">
+      <div class="search-input-wrapper">
+        <span class="search-icon">🔍</span>
+        <input 
+          type="text" 
+          id="search-input" 
+          class="search-input" 
+          placeholder="Search by patient name, phone, email, or service..."
+        >
+      </div>
+
+      <div class="filter-controls">
+        <select id="status-filter" class="filter-select">
+          <option value="all">All Statuses</option>
+          <option value="pending">Pending Only</option>
+          <option value="confirmed">Confirmed Only</option>
+          <option value="completed">Completed Only</option>
+          <option value="cancelled">Cancelled Only</option>
+        </select>
+
+        <input 
+          type="date" 
+          id="date-filter" 
+          class="filter-select" 
+          title="Filter by appointment date"
+        >
+
+        <button id="clear-filters-btn" class="btn btn-outline btn-sm">
+          Clear Filters
+        </button>
+      </div>
+    </section>
+
+    <!-- Appointments Data Table -->
+    <section class="table-card">
+      <div class="table-responsive">
+        <table class="appointments-table" id="appointments-table">
+          <thead>
+            <tr>
+              <th>Patient</th>
+              <th>Phone</th>
+              <th>Date & Time</th>
+              <th>Service</th>
+              <th>Message</th>
+              <th>Status</th>
+              <th style="text-align: right;">Actions</th>
+            </tr>
+          </thead>
+          <tbody id="appointments-tbody">
+            <!-- Dynamically populated rows -->
+            <tr>
+              <td colspan="7">
+                <div class="table-empty-state">
+                  <div class="spinner spinner-dark" style="margin: 0 auto 12px; width: 28px; height: 28px;"></div>
+                  <p>Loading appointments from Supabase...</p>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Floating Toast Notification Container -->
+  <div class="toast-container" id="toast-container" aria-live="polite"></div>
+
+  <!-- Admin JavaScript -->
+  <script src="js/admin.js"></script>
+</body>
+</html>
